@@ -1,0 +1,164 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+p {
+    
+    color: rgb(255, 0, 119);
+}
+
+
+#canvas1 {
+    background: linear-gradient(to bottom, rgb(51, 66, 71), rgb(0, 0, 29));
+    border:rgb(99, 99, 99) 0px solid;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 0vh;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100vh;
+    width: 100vw;
+    
+}
+
+
+.unselectable {
+    -webkit-touch-callout: none;  /* iPhone OS, Safari */
+    -webkit-user-select: none;    /* Chrome, Safari 3 */
+    -khtml-user-select: none;     /* Safari 2 */
+    -moz-user-select: none;       /* Firefox */
+    -ms-user-select: none;        /* IE10+ */
+    user-select: none;            /* Possível implementação no futuro */
+    /* cursor: default; */
+}
+
+nav a {
+    color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    transition: 0.3s;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); 
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.5), 
+    0px 0px 10px rgb(255, 255, 255, 0.5), 
+    0px 0px 15px rgb(255, 255, 255, 0.5),
+    0px 0px 20px rgb(255, 255, 255, 0.5),
+    0px 0px 30px rgb(255, 255, 255, 0.5),
+    0px 0px 40px rgb(255, 255, 255, 0.5),
+    0px 0px 55px rgb(255, 255, 255, 0.5),
+    0px 0px 75px rgb(255, 255, 255, 0.5);
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;      
+    -ms-user-select: none;       
+    user-select: none;
+  }
+  
+nav .score {
+    font-size: 29px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    float: left;
+    transform: translateY(50%);
+}
+  
+
+nav .clicks {
+    font-size: 29px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    float: left;
+    transform: translateY(50%);
+}
+
+
+nav {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 0%;
+    padding: 0px 5%;
+    box-sizing: border-box;
+    background: rgba(255, 0, 0, 0);
+    border-bottom: 0px solid #fff;
+}
+
+.menu {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: right;
+    width: 40px;
+    height: 80px;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    border: 0px solid #fff; 
+  }
+  .menu1 {
+    width: 32px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, 0.35), 
+    0px 0px 10px rgb(255, 255, 255, 0.2), 
+    0px 0px 15px rgb(255, 255, 255, 0.2),
+    0px 0px 20px rgb(255, 255, 255, 0.2),
+    0px 0px 30px rgb(255, 255, 255, 0.2),
+    0px 0px 40px rgb(255, 255, 255, 0.1),
+    0px 0px 55px rgb(255, 255, 255, 0.1),
+    0px 0px 75px rgb(255, 255, 255, 0.1);
+    transition: all .5s ease-in-out;
+  }
+  .menu1::before,
+  .menu1::after {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 4px;
+    background: rgb(255, 255, 255, 0.6);
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px 10px rgba(255, 255, 255, 0.35), 
+    0px 0px 10px rgb(255, 255, 255, 0.2), 
+    0px 0px 15px rgb(255, 255, 255, 0.2),
+    0px 0px 20px rgb(255, 255, 255, 0.2),
+    0px 0px 30px rgb(255, 255, 255, 0.2),
+    0px 0px 40px rgb(255, 255, 255, 0.1),
+    0px 0px 55px rgb(255, 255, 255, 0.1),
+    0px 0px 75px rgb(255, 255, 255, 0.1);
+    transition: all .5s ease-in-out;
+  }
+  .menu1::before {
+    transform: translateY(-9px);
+  }
+  .menu1::after {
+    transform: translateY(9px);
+  }
+  /* ANIMATION */
+  .menu.open .menu1 {
+    transform: translateX(-50px);
+    background: transparent;
+    box-shadow: none;
+  }
+  .menu.open .menu1::before {
+    transform: rotate(45deg) translate(35px, -35px);
+  }
+  .menu.open .menu1::after {
+    transform: rotate(-45deg) translate(35px, 35px);
+  }
