@@ -16,9 +16,9 @@ const entities = [];
 
 
 const fishLeft1 = new Image();
-fishLeft1.src = "img/fish3l.png";
+fishLeft1.src = "img/fish1l.png";
 const fishRight1 = new Image();
-fishRight1.src = "img/fish3r.png";
+fishRight1.src = "img/fish1r.png";
 
     
 
