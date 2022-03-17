@@ -16,9 +16,9 @@ const entities = [];
 
 
 const fishLeft1 = new Image();
-fishLeft1.src = "fishLeft1.png";
+fishLeft1.src = "img/fish3l.png";
 const fishRight1 = new Image();
-fishRight1.src = "fishRight1.png";
+fishRight1.src = "img/fish3r.png";
 
     
 
@@ -28,8 +28,8 @@ canvas.addEventListener('click', function (e) {
     this.y = e.y
     
     
-    let dWidth = 73;
-    let dHeight = 40;
+    let dWidth = 88;
+    let dHeight = 30;
     
     entities.push(new Fish(this.img, this.x, this.y, dWidth, dHeight));
     if (bonusClick > 1) {
@@ -176,7 +176,7 @@ Update();
 
 
 
-const menu = document.querySelector('.menu');
+const menu = document.getElementById('menu');
 let menuOpen = false;
 
 menu.addEventListener('click', () => {
