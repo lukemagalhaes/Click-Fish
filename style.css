@@ -217,3 +217,7 @@ article {
   justify-content: space-around;
   padding: 2%;
 }
+
+#fishImg{
+  width: 80vw;
+}
