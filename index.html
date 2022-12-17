@@ -10,13 +10,26 @@
 <body>
     <header>
         <nav>
-            <a id="score">SCORE: <a id="clicks">0</a></a>
-            <div id="menu">
-                <div id="menu1"></div>
-            </div>
+            <p id="score">SCORE: <p id="clicks">0</p></p>
+            <a href="#shop">
+                <div id="menu">
+                    <div id="menu1"></div>
+                </div>
+            </a>
         </nav>
-      </header>
-    <canvas id="canvas1"> Your browser does not support the HTML5 canvas tag. </canvas>
-    <script src ="./index.js"></script>
+    </header>
+
+    <canvas id="canvas"> Your browser does not support the HTML5 canvas tag. </canvas>
+    <img id="wood" class="unselectable" src="img/wood.png" alt="wood">
+    <article class="unselectable">
+        <button id="upgrade">
+            <img src="img/golden-fish.png" alt="">
+            <h1 id="price"></h1>
+        </button>   
+    </article>
+
+                        
+
+    <script src="./index.js"></script>
 </body>
 </html>
