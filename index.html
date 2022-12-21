@@ -10,7 +10,9 @@
 <body>
     <header>
         <nav>
-            <p id="score">SCORE: <p id="clicks">0</p></p>
+            <p id="score">SCORE: 
+                <p id="clicks">0</p>
+            </p>
             <a href="#shop">
                 <div id="menu">
                     <div id="menu1"></div>
@@ -18,12 +20,12 @@
             </a>
         </nav>
     </header>
-
+    <style> @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap'); </style>
     <canvas id="canvas"> Your browser does not support the HTML5 canvas tag. </canvas>
     <img id="wood" class="unselectable" src="img/wood.png" alt="wood">
     <article class="unselectable">
         <button id="upgrade">
-            <img id="fishImg" src="img/golden-fish.png" alt="">
+            <img id="fishImg" class="locked" src="img/golden-fish.png" alt="">
             <h1 id="price"></h1>
         </button>   
     </article>

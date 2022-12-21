@@ -90,6 +90,7 @@ upgrade.onclick = (() => {
         fishUpgrade++;
         document.getElementById("clicks").innerHTML = clicks;
         price = imgFish[fishUpgrade].price;
+        document.getElementById("fishImg").classList.remove("locked")
         document.getElementById("price").innerHTML = price;
     }
 });
