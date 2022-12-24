@@ -1,14 +1,14 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-const upgrade = document.getElementById("upgrade");
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+(canvas.width < 500 ? maxFish = 10 : maxFish = 30)
 
 let clicks = 0;
 let bonusClick = 1;
-let fishUpgrade = 1;
+let fishUpgrade = 0;
 let num = 0;
-
 let cleanTop = false;
 let cleanBottom = false;
 let cleanRight = false;
@@ -16,33 +16,85 @@ let cleanLeft = false;
 
 const entities = [];
 const imgFish = [
-    {
-        fishLeft: "img/fishLeft1.png",
-        fishRight: "img/fishRight1.png",
-        width: 73,
-        height: 40,
+    {   
+        name: "goldenfish",
+        img: "img/fish/goldenfish/goldenfish.png",
+        fishLeft: "img/fish/goldenfish/goldenfishL.png",
+        fishRight: "img/fish/goldenfish/goldenfishR.png",
+        width: 50,
+        height: 31,
         bonusClick: 1,
         price: 0
     },
     {
-        fishLeft: "img/fish1l.png",
-        fishRight: "img/fish1r.png",
-        width: 88,
-        height: 30,
+        name: "clownfish",
+        img: "img/fish/clownfish/clownfish.png",
+        fishLeft: "img/fish/clownfish/clownfishL.png",
+        fishRight: "img/fish/clownfish/clownfishR.png",
+        width: 45,
+        height: 26,
         bonusClick: 2,
         price: 10
     },
     {
-        fishLeft: "img/fish1l.png",
-        fishRight: "img/fish1r.png",
-        width: 88,
-        height: 30,
-        bonusClick: 3,
-        price: 1000
+        name: "pixel clownfish",
+        img: "img/fish/orangefish/orangefish.png",
+        fishLeft: "img/fish/orangefish/orangefishL.png",
+        fishRight: "img/fish/orangefish/orangefishR.png",
+        width: 80,
+        height: 40,
+        bonusClick: 5,
+        price: 100
+    },
+    {
+        name: "pixel clownfish 2",
+        img: "img/fish/exoticfish/exoticfish.png",
+        fishLeft: "img/fish/exoticfish/exoticfishL.png",
+        fishRight: "img/fish/exoticfish/exoticfishR.png",
+        width: 100,
+        height: 48,
+        bonusClick: 10,
+        price: 1000 
     }
 ];
 let price = imgFish[fishUpgrade].price;
-document.getElementById("price").innerHTML = price;
+
+function showShop(imgFish) {
+    const shopHTML = document.getElementById("shop");
+    let html = "";
+    for (let i = 0; i < imgFish.length; i++) {
+        html += `<button id="${imgFish[i].name}">`;
+        html += `<img class="fishImg locked" src="${imgFish[i].img}" alt="">`;
+        html += `<h1 class="price">${imgFish[i].price}</h1>`;
+        html += `</button>`;
+    }
+    shopHTML.innerHTML = html;
+    loadShop(imgFish)
+}
+
+function loadShop(imgFish){
+    const upgrade = document.getElementById(`${imgFish[fishUpgrade].name}`);
+    if (fishUpgrade == 0) {
+        document.getElementsByClassName("fishImg")[0].classList.remove("locked");
+        const priceHTML = document.getElementsByClassName("price")[0];
+        priceHTML.innerHTML = fishUpgrade;
+        priceHTML.parentNode.removeChild(priceHTML);
+        fishUpgrade++;
+        loadShop(imgFish)
+    }
+
+    upgrade.onclick = (() => {
+        if (clicks >= imgFish[fishUpgrade].price && imgFish[fishUpgrade].name == upgrade.id) {
+            clicks -= imgFish[fishUpgrade].price;
+            document.getElementById("clicks").innerHTML = clicks;
+            document.getElementsByClassName("fishImg")[fishUpgrade].classList.remove("locked");
+            const priceHTML = document.getElementsByClassName("price")[0];
+            priceHTML.parentNode.removeChild(priceHTML);
+            fishUpgrade++;
+            loadShop(imgFish);
+        }
+    });
+}
 
 canvas.addEventListener('click', function (e) {
     num = Math.floor(Math.random() * fishUpgrade);
@@ -52,16 +104,12 @@ canvas.addEventListener('click', function (e) {
     this.dHeight = imgFish[num].height;
     this.img = imgFish[num];
 
-
-    
-    document.getElementById("price").innerHTML = price;
-
     entities.push(new Fish(this.img, this.x, this.y, this.dWidth, this.dHeight));
-    clicks = clicks + imgFish[num].bonusClick;
+    clicks += imgFish[num].bonusClick;
 
     document.getElementById("clicks").innerHTML = clicks;
     
-    if (entities.length >= 30) {
+    if (entities.length >= maxFish) {
         cleanBottom = true;
         cleanTop = true;
         cleanLeft = true;
@@ -76,22 +124,8 @@ canvas.addEventListener('click', function (e) {
 
     for (let i = 0; i < entities.length; i++){
         if (entities[i].y - this.dHeight > canvas.height || entities[i].y < - this.dHeight || entities[i].x > canvas.width || entities[i].x < - this.dWidth){
-            console.log(entities);
             entities.splice(i, 1);
         }
-    }
-});
-
-
-
-upgrade.onclick = (() => {
-    if (clicks >= price) {
-        clicks -= price;
-        fishUpgrade++;
-        document.getElementById("clicks").innerHTML = clicks;
-        price = imgFish[fishUpgrade].price;
-        document.getElementById("fishImg").classList.remove("locked")
-        document.getElementById("price").innerHTML = price;
     }
 });
 
@@ -115,8 +149,6 @@ class Fish {
         this.dy *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
 
         (this.dx < 0 ? this.img.src = this.src.fishLeft : this.img.src = this.src.fishRight)
-        
-
     }
     
     draw(){
@@ -204,12 +236,14 @@ menu.addEventListener('click', () => {
     if(!menuOpen) {
         menu.classList.add('open');
         menuOpen = true;
-        console.log(entities);
+        menu.parentElement.href="#shop"; 
     } 
     else {
         menu.classList.remove('open');
         menuOpen = false;
+        menu.parentElement.href="#"; 
     }
 });
 
 const menuItems = document.querySelectorAll('#shop');
+showShop(imgFish);
