@@ -1,0 +1,42 @@
+[
+    {   
+        "name": "goldenfish",
+        "img": "img/fish/goldenfish/goldenfish.png",
+        "fishLeft": "img/fish/goldenfish/goldenfishL.png",
+        "fishRight": "img/fish/goldenfish/goldenfishR.png",
+        "width": 50,
+        "height": 31,
+        "bonusClick": 1,
+        "price": 0
+    },
+    {
+        "name": "clownfish",
+        "img": "img/fish/clownfish/clownfish.png",
+        "fishLeft": "img/fish/clownfish/clownfishL.png",
+        "fishRight": "img/fish/clownfish/clownfishR.png",
+        "width": 45,
+        "height": 26,
+        "bonusClick": 2,
+        "price": 10
+    },
+    {
+        "name": "orangefish",
+        "img": "img/fish/orangefish/orangefish.png",
+        "fishLeft": "img/fish/orangefish/orangefishL.png",
+        "fishRight": "img/fish/orangefish/orangefishR.png",
+        "width": 80,
+        "height": 40,
+        "bonusClick": 5,
+        "price": 12
+    },
+    {
+        "name": "exoticfish",
+        "img": "img/fish/exoticfish/exoticfish.png",
+        "fishLeft": "img/fish/exoticfish/exoticfishL.png",
+        "fishRight": "img/fish/exoticfish/exoticfishR.png",
+        "width": 100,
+        "height": 48,
+        "bonusClick": 10,
+        "price": 13
+    }
+]

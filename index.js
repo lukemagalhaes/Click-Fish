@@ -1,111 +1,82 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-
+window.onload = loadFishes;
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 (canvas.width < 500 ? maxFish = 10 : maxFish = 30)
 
 let clicks = 0;
 let bonusClick = 1;
-let fishUpgrade = 0;
+let lockedFish = 0;
 let num = 0;
 let cleanTop = false;
 let cleanBottom = false;
 let cleanRight = false;
 let cleanLeft = false;
-
+const fishesArray = [];
 const entities = [];
-const imgFish = [
-    {   
-        name: "goldenfish",
-        img: "img/fish/goldenfish/goldenfish.png",
-        fishLeft: "img/fish/goldenfish/goldenfishL.png",
-        fishRight: "img/fish/goldenfish/goldenfishR.png",
-        width: 50,
-        height: 31,
-        bonusClick: 1,
-        price: 0
-    },
-    {
-        name: "clownfish",
-        img: "img/fish/clownfish/clownfish.png",
-        fishLeft: "img/fish/clownfish/clownfishL.png",
-        fishRight: "img/fish/clownfish/clownfishR.png",
-        width: 45,
-        height: 26,
-        bonusClick: 2,
-        price: 10
-    },
-    {
-        name: "pixel clownfish",
-        img: "img/fish/orangefish/orangefish.png",
-        fishLeft: "img/fish/orangefish/orangefishL.png",
-        fishRight: "img/fish/orangefish/orangefishR.png",
-        width: 80,
-        height: 40,
-        bonusClick: 5,
-        price: 100
-    },
-    {
-        name: "pixel clownfish 2",
-        img: "img/fish/exoticfish/exoticfish.png",
-        fishLeft: "img/fish/exoticfish/exoticfishL.png",
-        fishRight: "img/fish/exoticfish/exoticfishR.png",
-        width: 100,
-        height: 48,
-        bonusClick: 10,
-        price: 1000 
-    }
-];
-let price = imgFish[fishUpgrade].price;
 
-function showShop(imgFish) {
+async function loadFishes() {
+    const resp = await fetch("fishes.json");
+    const fishes = await resp.json();
+    fishesArray.push(fishes);
+    showShop(fishes);
+}
+
+function showShop(fishes) {
     const shopHTML = document.getElementById("shop");
     let html = "";
-    for (let i = 0; i < imgFish.length; i++) {
-        html += `<button id="${imgFish[i].name}">`;
-        html += `<img class="fishImg locked" src="${imgFish[i].img}" alt="">`;
-        html += `<h1 class="price">${imgFish[i].price}</h1>`;
+    for (let i = 0; i < fishes.length; i++) {
+        html += `<button id="${fishes[i].name}">`;
+        html += `<img class="fishImg locked" src="${fishes[i].img}" alt="">`;
+        html += `<h1 class="price">${fishes[i].price}</h1>`;
         html += `</button>`;
     }
     shopHTML.innerHTML = html;
-    loadShop(imgFish)
+    loadShop(fishes)
 }
 
-function loadShop(imgFish){
-    const upgrade = document.getElementById(`${imgFish[fishUpgrade].name}`);
-    if (fishUpgrade == 0) {
+function loadShop(fishes){
+    if (lockedFish == 0) {
         document.getElementsByClassName("fishImg")[0].classList.remove("locked");
         const priceHTML = document.getElementsByClassName("price")[0];
-        priceHTML.innerHTML = fishUpgrade;
+        priceHTML.innerHTML = lockedFish;
         priceHTML.parentNode.removeChild(priceHTML);
-        fishUpgrade++;
-        loadShop(imgFish)
+        lockedFish++;
+        loadShop(fishes)
     }
+    loadUpgrades(fishes);
+}
 
+function loadUpgrades(fishes){
+    const upgrade = document.getElementById(`${fishes[lockedFish].name}`);
     upgrade.onclick = (() => {
-        if (clicks >= imgFish[fishUpgrade].price && imgFish[fishUpgrade].name == upgrade.id) {
-            clicks -= imgFish[fishUpgrade].price;
+        if (lockedFish < fishes.length && clicks >= fishes[lockedFish].price && fishes[lockedFish].name == upgrade.id) {
+            console.log("nome peixe: ", fishes[lockedFish].name, "  id: ", upgrade.id)
+            clicks -= fishes[lockedFish].price;
             document.getElementById("clicks").innerHTML = clicks;
-            document.getElementsByClassName("fishImg")[fishUpgrade].classList.remove("locked");
+            document.getElementsByClassName("fishImg")[lockedFish].classList.remove("locked");
             const priceHTML = document.getElementsByClassName("price")[0];
             priceHTML.parentNode.removeChild(priceHTML);
-            fishUpgrade++;
-            loadShop(imgFish);
+            (lockedFish <= fishes.length -1 ? lockedFish++ : lockedFish = fishes.length -1);
+            //console.log("Maximum number of upgrades reached");
+            loadShop(fishes);
         }
+        console.log("lockedFish: ", lockedFish, "   length: ", fishes.length)
     });
 }
 
 canvas.addEventListener('click', function (e) {
-    num = Math.floor(Math.random() * fishUpgrade);
+    const fishes = fishesArray[0]
+    num = Math.floor(Math.random() * lockedFish);
     this.x = e.pageX;
     this.y = e.pageY;
-    this.dWidth = imgFish[num].width;
-    this.dHeight = imgFish[num].height;
-    this.img = imgFish[num];
+    this.dWidth = fishes[num].width;
+    this.dHeight = fishes[num].height;
+    this.img = fishes[num];
 
     entities.push(new Fish(this.img, this.x, this.y, this.dWidth, this.dHeight));
-    clicks += imgFish[num].bonusClick;
+    clicks += fishes[num].bonusClick;
 
     document.getElementById("clicks").innerHTML = clicks;
     
@@ -147,7 +118,6 @@ class Fish {
         this.dy = Math.floor(Math.random() * 4) + 2;
         this.dx *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
         this.dy *= Math.floor(Math.random() * 2) == 1 ? 1 : -1;
-
         (this.dx < 0 ? this.img.src = this.src.fishLeft : this.img.src = this.src.fishRight)
     }
     
@@ -237,6 +207,7 @@ menu.addEventListener('click', () => {
         menu.classList.add('open');
         menuOpen = true;
         menu.parentElement.href="#shop"; 
+        console.log(fishesArray);
     } 
     else {
         menu.classList.remove('open');
@@ -246,4 +217,3 @@ menu.addEventListener('click', () => {
 });
 
 const menuItems = document.querySelectorAll('#shop');
-showShop(imgFish);
