@@ -27,7 +27,7 @@
         "width": 80,
         "height": 40,
         "bonusClick": 5,
-        "price": 12
+        "price": 100
     },
     {
         "name": "exoticfish",
@@ -37,6 +37,6 @@
         "width": 100,
         "height": 48,
         "bonusClick": 10,
-        "price": 13
+        "price": 200
     }
 ]
