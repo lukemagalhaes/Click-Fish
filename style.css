@@ -182,7 +182,7 @@ nav {
   width: 100%;
   min-height: 75px;
   box-shadow: inset;
-
+  pointer-events: none;
   -webkit-box-shadow: 0px 20px 24px -5px rgba(0,0,0,0.75);
   -moz-box-shadow: 0px 20px 24px -5px rgba(0,0,0,0.75);
   box-shadow: 0px 20px 24px -5px rgba(0,0,0,0.75);
@@ -221,13 +221,14 @@ button {
 
 #shop button {
   display: flex;
+  flex-direction: row;
   align-items: center;
   width: 25vw;
   padding: 0;
 }
 
 #shop button:hover .fishImg{
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 #wood {
